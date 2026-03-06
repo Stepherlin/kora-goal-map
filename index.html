@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KORA — Ecosystem Penetration Map</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Inter, system-ui, sans-serif;
+    background: linear-gradient(135deg, #f0f4ff 0%, #fafbff 100%);
+    min-height: 100vh;
+    padding: 36px 24px 48px;
+    color: #1e3a5f;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+
+  /* Header */
+  .header { text-align: center; margin-bottom: 28px; }
+  .eyebrow {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    margin-bottom: 8px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #1e3a5f; }
+  .eyebrow-text {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: #64748b; font-weight: 600;
+  }
+  h1 { font-size: 26px; font-weight: 800; color: #1e3a5f; letter-spacing: -0.5px; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: #64748b; }
+
+  /* KPI Strip */
+  .kpis {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    margin-bottom: 24px;
+  }
+  .kpi {
+    border-radius: 12px; padding: 14px 16px;
+    border: 1px solid transparent;
+  }
+  .kpi-value { font-size: 26px; font-weight: 800; }
+  .kpi-label { font-size: 11px; font-weight: 600; color: #334155; margin-top: 2px; }
+  .kpi-sub { font-size: 10px; color: #64748b; margin-top: 3px; }
+
+  /* Tabs */
+  .tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; }
+  .tab {
+    padding: 7px 18px; border-radius: 8px; border: none; cursor: pointer;
+    font-size: 12px; font-weight: 600; transition: all 0.2s; font-family: inherit;
+  }
+  .tab.active { background: #1e3a5f; color: #fff; }
+  .tab:not(.active) { background: #e2e8f0; color: #475569; }
+  .tab:not(.active):hover { background: #cbd5e1; }
+
+  /* Chart Card */
+  .chart-card {
+    background: #fff; border-radius: 20px; padding: 28px 20px 20px;
+    box-shadow: 0 4px 24px rgba(30,58,95,0.08); border: 1px solid #e8eefa;
+    margin-bottom: 24px;
+  }
+  .chart-wrap { position: relative; height: 420px; }
+
+  /* Legend */
+  .legend {
+    display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+    margin-top: 16px; font-size: 12px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .legend-line {
+    width: 20px; height: 2px; border-top: 2px dashed; flex-shrink: 0;
+  }
+
+  /* Table */
+  .table-card {
+    background: #fff; border-radius: 16px; overflow: hidden;
+    border: 1px solid #e8eefa; box-shadow: 0 2px 12px rgba(30,58,95,0.06);
+  }
+  .table-head {
+    display: grid; grid-template-columns: 1fr 72px 72px 72px 72px 100px;
+    gap: 8px; padding: 13px 20px; background: #1e3a5f;
+  }
+  .th { font-size: 11px; font-weight: 700; color: #93c5fd; }
+  .th:not(:first-child) { text-align: center; }
+  .table-row {
+    display: grid; grid-template-columns: 1fr 72px 72px 72px 72px 100px;
+    gap: 8px; padding: 12px 20px; align-items: center;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .table-row:nth-child(even) { background: #f8faff; }
+  .table-row:last-child { border-bottom: none; }
+  .td { font-size: 13px; }
+  .td:not(:first-child) { text-align: center; }
+  .sector-name { font-weight: 600; color: #1e3a5f; }
+  .val-prev { color: #94a3b8; }
+  .val-all { font-weight: 700; color: #1e3a5f; }
+  .val-active { color: #2563eb; font-weight: 600; }
+  .val-delta { font-weight: 700; }
+  .delta-pos { color: #22c55e; }
+  .delta-neg { color: #ef4444; }
+  .delta-neu { color: #94a3b8; }
+  .progress-wrap { display: flex; align-items: center; gap: 6px; }
+  .progress-bar { flex: 1; height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 3px; transition: width 0.8s ease; }
+  .progress-pct { font-size: 10px; font-weight: 700; min-width: 28px; }
+
+  .footer { text-align: center; font-size: 11px; color: #94a3b8; margin-top: 20px; }
+
+  @media (max-width: 600px) {
+    .kpis { grid-template-columns: repeat(2, 1fr); }
+    h1 { font-size: 20px; }
+    .table-head, .table-row {
+      grid-template-columns: 1fr 50px 50px 50px 50px 80px;
+      gap: 4px; padding: 10px 12px; font-size: 11px;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="eyebrow">
+      <div class="dot"></div>
+      <span class="eyebrow-text">KORA · Ecosystem Intelligence</span>
+      <div class="dot"></div>
+    </div>
+    <h1>Ecosystem Penetration Map</h1>
+    <p class="subtitle">Strategic positioning across 9 sectors &nbsp;·&nbsp; Updated March 2026 &nbsp;·&nbsp; Target: 20 contacts per sector</p>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpis">
+    <div class="kpi" style="background:#e8eefa; border-color:#1e3a5f22;">
+      <div class="kpi-value" style="color:#1e3a5f;">197</div>
+      <div class="kpi-label">Total Contacts</div>
+      <div class="kpi-sub">+101 from previous benchmark</div>
+    </div>
+    <div class="kpi" style="background:#dbeafe; border-color:#2563eb22;">
+      <div class="kpi-value" style="color:#2563eb;">143</div>
+      <div class="kpi-label">Active (In Conversation)</div>
+      <div class="kpi-sub">73% engagement rate</div>
+    </div>
+    <div class="kpi" style="background:#d1fae5; border-color:#05996922;">
+      <div class="kpi-value" style="color:#059669;">3/9</div>
+      <div class="kpi-label">Sectors at Target</div>
+      <div class="kpi-sub">≥ 20 contacts reached</div>
+    </div>
+    <div class="kpi" style="background:#fef3c7; border-color:#d9770622;">
+      <div class="kpi-value" style="color:#d97706;">+105%</div>
+      <div class="kpi-label">Network Growth</div>
+      <div class="kpi-sub">vs. previous benchmark (96)</div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchView('comparison', this)">Avant / Après</button>
+    <button class="tab" onclick="switchView('current', this)">État actuel</button>
+  </div>
+
+  <!-- Chart -->
+  <div class="chart-card">
+    <div class="chart-wrap">
+      <canvas id="radarChart"></canvas>
+    </div>
+    <div class="legend" id="legend"></div>
+  </div>
+
+  <!-- Table -->
+  <div class="table-card">
+    <div class="table-head">
+      <span class="th">Secteur</span>
+      <span class="th">Avant</span>
+      <span class="th">Total</span>
+      <span class="th">Actifs</span>
+      <span class="th">∆</span>
+      <span class="th">vs Cible (20)</span>
+    </div>
+    <div id="tableBody"></div>
+  </div>
+
+  <p class="footer">Source : KORA_Strategic_Contacts_060326_EN.xlsx &nbsp;·&nbsp; 197 contacts &nbsp;·&nbsp; Benchmark précédent : 96 contacts</p>
+</div>
+
+<script>
+const SECTORS = [
+  'AI Labs', 'EdTech', 'School Districts', 'Teachers',
+  'Parents/Family', 'Regulators/Policy', 'Nonprofits/Advocacy',
+  'Research/Academia', 'Others'
+];
+
+const PREV = [10, 16, 6, 4, 10, 5, 7, 28, 10];
+const NEW_ALL  = [22, 21, 2, 1, 1, 16, 27, 46, 61];
+const NEW_ACT  = [19, 15, 1, 0, 0, 15, 20, 40, 33];
+const TARGET   = 20;
+
+const C = {
+  navy:   'rgba(30,58,95,1)',
+  navyFill: 'rgba(30,58,95,0.25)',
+  blue:   'rgba(37,99,235,1)',
+  blueFill: 'rgba(37,99,235,0.3)',
+  prev:   'rgba(147,197,253,1)',
+  prevFill: 'rgba(147,197,253,0.2)',
+  orange: 'rgba(249,115,22,1)',
+};
+
+let chart;
+let currentView = 'comparison';
+
+function buildDatasets(view) {
+  const target = {
+    label: 'Cible (20)',
+    data: Array(9).fill(TARGET),
+    borderColor: C.orange,
+    borderWidth: 1.5,
+    borderDash: [6, 3],
+    backgroundColor: 'transparent',
+    pointRadius: 0,
+    order: 3,
+  };
+
+  if (view === 'comparison') {
+    return [
+      target,
+      {
+        label: 'Avant (96 contacts)',
+        data: PREV,
+        borderColor: C.prev,
+        backgroundColor: C.prevFill,
+        borderWidth: 1.5,
+        pointBackgroundColor: C.prev,
+        pointRadius: 4,
+        order: 2,
+      },
+      {
+        label: 'Maintenant — Total (197)',
+        data: NEW_ALL,
+        borderColor: C.navy,
+        backgroundColor: C.navyFill,
+        borderWidth: 2.5,
+        pointBackgroundColor: C.navy,
+        pointRadius: 5,
+        order: 1,
+      },
+    ];
+  } else {
+    return [
+      target,
+      {
+        label: 'Total contacts (197)',
+        data: NEW_ALL,
+        borderColor: C.navy,
+        backgroundColor: C.navyFill,
+        borderWidth: 2,
+        pointBackgroundColor: C.navy,
+        pointRadius: 5,
+        order: 2,
+      },
+      {
+        label: 'Contacts actifs (143)',
+        data: NEW_ACT,
+        borderColor: C.blue,
+        backgroundColor: C.blueFill,
+        borderWidth: 2,
+        pointBackgroundColor: C.blue,
+        pointRadius: 5,
+        order: 1,
+      },
+    ];
+  }
+}
+
+function buildLegend(view) {
+  const legend = document.getElementById('legend');
+  const items = view === 'comparison'
+    ? [
+        { color: C.orange, label: 'Cible (20)', dashed: true },
+        { color: C.prev, label: 'Avant (96 contacts)' },
+        { color: C.navy, label: 'Maintenant — Total (197)' },
+      ]
+    : [
+        { color: C.orange, label: 'Cible (20)', dashed: true },
+        { color: C.navy, label: 'Total contacts (197)' },
+        { color: C.blue, label: 'Contacts actifs (143)' },
+      ];
+
+  legend.innerHTML = items.map(item => {
+    const indicator = item.dashed
+      ? `<div class="legend-line" style="border-color:${item.color};"></div>`
+      : `<div class="legend-dot" style="background:${item.color};"></div>`;
+    return `<div class="legend-item">${indicator}<span style="color:#475569;">${item.label}</span></div>`;
+  }).join('');
+}
+
+function buildTable() {
+  const body = document.getElementById('tableBody');
+  body.innerHTML = SECTORS.map((s, i) => {
+    const prev = PREV[i];
+    const all  = NEW_ALL[i];
+    const act  = NEW_ACT[i];
+    const delta = all - prev;
+    const pct  = Math.min(100, Math.round(all / TARGET * 100));
+    const atTarget = all >= TARGET;
+    const deltaClass = delta > 0 ? 'delta-pos' : delta < 0 ? 'delta-neg' : 'delta-neu';
+    const deltaStr = (delta > 0 ? '+' : '') + delta;
+    const fillColor = atTarget ? '#22c55e' : '#2563eb';
+    return `
+      <div class="table-row">
+        <span class="td sector-name">${s}</span>
+        <span class="td val-prev">${prev}</span>
+        <span class="td val-all">${all}</span>
+        <span class="td val-active">${act}</span>
+        <span class="td val-delta ${deltaClass}">${deltaStr}</span>
+        <div class="td">
+          <div class="progress-wrap">
+            <div class="progress-bar">
+              <div class="progress-fill" style="width:${pct}%; background:${fillColor};"></div>
+            </div>
+            <span class="progress-pct" style="color:${atTarget ? '#22c55e' : '#64748b'};">${pct}%</span>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function initChart(view) {
+  const ctx = document.getElementById('radarChart').getContext('2d');
+  if (chart) chart.destroy();
+
+  chart = new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: SECTORS,
+      datasets: buildDatasets(view),
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 600 },
+      scales: {
+        r: {
+          min: 0,
+          max: 55,
+          ticks: {
+            stepSize: 10,
+            color: '#94a3b8',
+            font: { size: 10 },
+            backdropColor: 'transparent',
+          },
+          grid: { color: '#e2e8f0' },
+          angleLines: { color: '#e2e8f0' },
+          pointLabels: {
+            color: '#334155',
+            font: { size: 12, weight: '600' },
+          },
+        },
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.dataset.label}: ${ctx.raw}`,
+          },
+          backgroundColor: '#fff',
+          titleColor: '#1e3a5f',
+          bodyColor: '#475569',
+          borderColor: '#e2e8f0',
+          borderWidth: 1,
+          padding: 12,
+          titleFont: { weight: '700' },
+        },
+      },
+    },
+  });
+  buildLegend(view);
+}
+
+function switchView(view, btn) {
+  currentView = view;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  initChart(view);
+}
+
+// Init
+initChart('comparison');
+buildTable();
+</script>
+</body>
+</html>
