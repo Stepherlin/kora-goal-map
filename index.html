@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KORA — Mapping of Researchers for Kids AI Safety</title>
 <style>
-:root{--bg:#0f1117;--surface:#1a1d27;--card:#222533;--border:#2d3044;--text:#e2e4ed;--muted:#8b8fa3;--accent:#7c5cfc;--accent2:#5eead4;--red:#f87171;--orange:#fb923c;--yellow:#fbbf24;--green:#4ade80;--blue:#60a5fa;--contact:#0d9488;--external:#6366f1;--key:#f87171}
+:root{--bg:#ffffff;--surface:#f8f9fa;--card:#f1f3f5;--border:#dee2e6;--text:#212529;--muted:#6c757d;--accent:#6c5ce7;--accent2:#0d9488;--red:#dc2626;--orange:#ea580c;--yellow:#ca8a04;--green:#16a34a;--blue:#2563eb;--contact:#0d9488;--external:#6366f1;--key:#dc2626}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;min-height:100vh}
 .container{max-width:1400px;margin:0 auto;padding:24px}
@@ -21,15 +21,15 @@ h1{font-size:1.6rem;font-weight:700;margin-bottom:4px}
 .legend-dot.moderate{background:var(--yellow)}
 .legend-dot.good{background:var(--green)}
 .tag-demo{display:inline-block;padding:2px 10px;border-radius:12px;font-size:.75rem;font-weight:500}
-.tag-contact-demo{background:rgba(13,148,136,.2);color:#5eead4;border:1px solid rgba(13,148,136,.5)}
-.tag-key-demo{background:rgba(248,113,113,.2);color:#fca5a5;border:2px solid rgba(248,113,113,.6);font-weight:600}
-.tag-external-demo{background:rgba(99,102,241,.15);color:#a5b4fc;border:1px dashed rgba(99,102,241,.5)}
-.tag-identified-demo{background:rgba(148,163,184,.15);color:#94a3b8;border:1px dotted rgba(148,163,184,.5)}
+.tag-contact-demo{background:rgba(13,148,136,.1);color:#0d7377;border:1px solid rgba(13,148,136,.4)}
+.tag-key-demo{background:rgba(220,38,38,.1);color:#b91c1c;border:2px solid rgba(220,38,38,.5);font-weight:600}
+.tag-external-demo{background:rgba(99,102,241,.1);color:#4f46e5;border:1px dashed rgba(99,102,241,.4)}
+.tag-identified-demo{background:rgba(100,116,139,.1);color:#64748b;border:1px dotted rgba(100,116,139,.4)}
 
 /* Filter buttons */
 .filter-bar{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
 .filter-btn{padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:.78rem;cursor:pointer;transition:.2s}
-.filter-btn:hover,.filter-btn.active{border-color:var(--accent);color:var(--text);background:rgba(124,92,252,.1)}
+.filter-btn:hover,.filter-btn.active{border-color:var(--accent);color:#fff;background:var(--accent)}
 
 /* Table */
 .risk-table{width:100%;border-collapse:separate;border-spacing:0;margin-bottom:16px}
@@ -40,9 +40,9 @@ h1{font-size:1.6rem;font-weight:700;margin-bottom:4px}
 .risk-table td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top;font-size:.85rem}
 .risk-table td:first-child{text-align:center;font-weight:700;color:var(--accent);font-size:.8rem;white-space:nowrap}
 .risk-table td:last-child{text-align:center;vertical-align:middle}
-.risk-table tr:hover td{background:rgba(124,92,252,.04)}
+.risk-table tr:hover td{background:rgba(108,92,231,.06)}
 
-.cat-header-row td{background:#ffffff !important;padding:12px 14px;font-weight:700;font-size:.9rem;border-bottom:2px solid var(--border);text-align:left;color:#1a1d27}
+.cat-header-row td{background:var(--surface) !important;padding:12px 14px;font-weight:700;font-size:.9rem;border-bottom:2px solid var(--border);text-align:left;color:var(--text)}
 .cat-header-row td .cat-num{background:var(--accent);color:#fff;padding:2px 10px;border-radius:20px;font-size:.73rem;font-weight:700;margin-right:8px}
 
 .risk-name{font-weight:600;font-size:.85rem;margin-bottom:3px}
@@ -50,10 +50,10 @@ h1{font-size:1.6rem;font-weight:700;margin-bottom:4px}
 
 /* Researcher tags */
 .researchers-list{display:flex;flex-wrap:wrap;gap:4px}
-.tag-contact{display:inline-block;background:rgba(13,148,136,.2);color:#5eead4;border:1px solid rgba(13,148,136,.5);padding:2px 10px;border-radius:12px;font-size:.73rem;font-weight:500}
-.tag-external{display:inline-block;background:rgba(99,102,241,.15);color:#a5b4fc;border:1px dashed rgba(99,102,241,.5);padding:2px 10px;border-radius:12px;font-size:.73rem;font-weight:500}
-.tag-identified{display:inline-block;background:rgba(148,163,184,.15);color:#94a3b8;border:1px dotted rgba(148,163,184,.5);padding:2px 10px;border-radius:12px;font-size:.73rem;font-weight:500}
-.tag-key{display:inline-block;background:rgba(248,113,113,.2);color:#fca5a5;border:2px solid rgba(248,113,113,.6);padding:2px 10px;border-radius:12px;font-size:.73rem;font-weight:600}
+.tag-contact{display:inline-block;background:rgba(13,148,136,.1);color:#0d7377;border:1px solid rgba(13,148,136,.4);padding:2px 10px;border-radius:12px;font-size:.73rem;font-weight:500}
+.tag-external{display:inline-block;background:rgba(99,102,241,.1);color:#4f46e5;border:1px dashed rgba(99,102,241,.4);padding:2px 10px;border-radius:12px;font-size:.73rem;font-weight:500}
+.tag-identified{display:inline-block;background:rgba(100,116,139,.1);color:#64748b;border:1px dotted rgba(100,116,139,.4);padding:2px 10px;border-radius:12px;font-size:.73rem;font-weight:500}
+.tag-key{display:inline-block;background:rgba(220,38,38,.1);color:#b91c1c;border:2px solid rgba(220,38,38,.5);padding:2px 10px;border-radius:12px;font-size:.73rem;font-weight:600}
 
 .coverage-dot{width:14px;height:14px;border-radius:50%;display:inline-block}
 .coverage-dot.gap{background:var(--red)}
@@ -62,10 +62,10 @@ h1{font-size:1.6rem;font-weight:700;margin-bottom:4px}
 .coverage-dot.good{background:var(--green)}
 
 .dissolved-row td{opacity:.5;font-style:italic}
-.dissolved-row .cat-dissolved{background:var(--muted);color:var(--bg);padding:2px 10px;border-radius:20px;font-size:.7rem;font-weight:600;text-transform:uppercase;margin-right:6px}
+.dissolved-row .cat-dissolved{background:#adb5bd;color:#fff;padding:2px 10px;border-radius:20px;font-size:.7rem;font-weight:600;text-transform:uppercase;margin-right:6px}
 .note-badge{background:var(--accent);color:#fff;padding:1px 8px;border-radius:10px;font-size:.7rem;font-weight:600;margin-right:6px;font-style:normal}
 
-.gap-text{color:var(--red);font-size:.78rem;font-style:italic}
+.gap-text{color:#b91c1c;font-size:.78rem;font-style:italic}
 
 @media(max-width:768px){.risk-table th:nth-child(2){width:auto}}
 </style>
@@ -144,7 +144,7 @@ h1{font-size:1.6rem;font-weight:700;margin-bottom:4px}
 </table>
 
 <div style="text-align:center;margin:32px 0 16px">
-<button onclick="downloadCSV()" style="padding:10px 28px;border-radius:24px;border:1px solid var(--accent);background:rgba(124,92,252,.15);color:var(--accent);font-size:.85rem;font-weight:600;cursor:pointer;transition:.2s;letter-spacing:.3px">⬇ Download CSV</button>
+<button onclick="downloadCSV()" style="padding:10px 28px;border-radius:24px;border:1px solid var(--accent);background:var(--accent);color:#fff;font-size:.85rem;font-weight:600;cursor:pointer;transition:.2s;letter-spacing:.3px">⬇ Download CSV</button>
 </div>
 
 </div><!-- container -->
