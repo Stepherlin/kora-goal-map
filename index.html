@@ -32,7 +32,7 @@
 
   /* KPI Strip */
   .kpis {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px;
     margin-bottom: 24px;
   }
   .kpi {
@@ -42,6 +42,41 @@
   .kpi-value { font-size: 26px; font-weight: 800; }
   .kpi-label { font-size: 11px; font-weight: 600; color: #334155; margin-top: 2px; }
   .kpi-sub { font-size: 10px; color: #64748b; margin-top: 3px; }
+
+  /* Roadmap */
+  .roadmap-card {
+    background: #fff; border-radius: 20px; padding: 24px 24px 20px;
+    box-shadow: 0 4px 24px rgba(30,58,95,0.08); border: 1px solid #e8eefa;
+    margin-bottom: 24px;
+  }
+  .roadmap-header { text-align: center; margin-bottom: 20px; }
+  .roadmap-title {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: #64748b; font-weight: 600;
+  }
+  .roadmap-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+  }
+  .roadmap-col {
+    background: #f8faff; border-radius: 12px; padding: 16px 14px;
+    border: 1px solid #e8eefa;
+  }
+  .roadmap-period {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; padding: 4px 10px; border-radius: 20px;
+    display: inline-block; margin-bottom: 14px;
+  }
+  .fin-mars  { background: #fff7ed; color: #c2410c; }
+  .fin-juin  { background: #eff6ff; color: #1d4ed8; }
+  .fin-2026  { background: #f0fdf4; color: #15803d; }
+  .roadmap-items { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .roadmap-items li { font-size: 12px; color: #475569; line-height: 1.5; }
+  .rtag { font-weight: 700; color: #1e3a5f; }
+  .rtag-apps { font-weight: 700; color: #7c3aed; }
+
+  @media (max-width: 600px) {
+    .roadmap-grid { grid-template-columns: 1fr; }
+  }
 
   /* Chart Card */
   .chart-card {
@@ -63,7 +98,7 @@
 
   @media (max-width: 600px) {
     .kpis { grid-template-columns: repeat(2, 1fr); }
-    .kpis > :last-child { grid-column: 1 / -1; }
+    .kpis > * { grid-column: span 1 !important; }
     h1 { font-size: 20px; }
   }
 </style>
@@ -82,24 +117,29 @@
     <p class="subtitle">09 mars 2026</p>
   </div>
 
-  <!-- KPIs -->
+  <!-- KPIs — grille 6 colonnes : row1 = 3×(span2), row2 = 2×(span3) -->
   <div class="kpis">
-    <div class="kpi" style="background:#e8eefa; border-color:#1e3a5f22;">
+    <div class="kpi" style="background:#e8eefa; border-color:#1e3a5f22; grid-column:span 2;">
       <div class="kpi-value" style="color:#1e3a5f;">161</div>
       <div class="kpi-label">Institutions engagées</div>
       <div class="kpi-sub">sur 197 contacts (bdd)</div>
     </div>
-    <div class="kpi" style="background:#d1fae5; border-color:#05996922;">
-      <div class="kpi-value" style="color:#059669;">14</div>
-      <div class="kpi-label">Pays représentés</div>
-      <div class="kpi-sub">dans la base de contacts</div>
+    <div class="kpi" style="background:#d1fae5; border-color:#05996922; grid-column:span 2;">
+      <div class="kpi-value" style="color:#059669;">3</div>
+      <div class="kpi-label">Gouvernements engagés</div>
+      <div class="kpi-sub">France · UK · Singapore</div>
     </div>
-    <div class="kpi" style="background:#ede9fe; border-color:#7c3aed22;">
+    <div class="kpi" style="background:#ede9fe; border-color:#7c3aed22; grid-column:span 2;">
       <div class="kpi-value" style="color:#7c3aed;">3</div>
       <div class="kpi-label">Edtech ont run KORA</div>
       <div class="kpi-sub">&nbsp;</div>
     </div>
-    <div class="kpi" style="background:#fff1f2; border-color:#e1193322;">
+    <div class="kpi" style="background:#fef9c3; border-color:#ca890122; grid-column:span 3;">
+      <div class="kpi-value" style="color:#ca8901;">0</div>
+      <div class="kpi-label">AI Labs run KORA</div>
+      <div class="kpi-sub">Objectif · OpenAI · Anthropic · DeepMind · Mistral</div>
+    </div>
+    <div class="kpi" style="background:#fff1f2; border-color:#e1193322; grid-column:span 3;">
       <div class="kpi-value" style="color:#e11933;">0</div>
       <div class="kpi-label">Publications Grand Média</div>
       <div class="kpi-sub">Objectif · WaPo · Guardian · TechCrunch · Axios</div>
@@ -114,7 +154,44 @@
     <div class="legend" id="legend"></div>
   </div>
 
-  <p class="footer">Source : KORA_Strategic_Contacts_060326_EN.xlsx &nbsp;·&nbsp; 197 contacts &nbsp;·&nbsp; 161 institutions distinctes &nbsp;·&nbsp; 14 pays · 5 continents &nbsp;·&nbsp; Mise à jour : 09/03/2026</p>
+  <!-- Roadmap -->
+  <div class="roadmap-card">
+    <div class="roadmap-header">
+      <span class="roadmap-title">Objectifs stratégiques 2026</span>
+    </div>
+    <div class="roadmap-grid">
+
+      <div class="roadmap-col">
+        <div class="roadmap-period fin-mars">Fin mars 2026</div>
+        <ul class="roadmap-items">
+          <li><span class="rtag">30 Edtech</span> ont run KORA — tests pilotés par l'équipe KORA</li>
+          <li><span class="rtag">Programme de recherche</span> lancé — 10–15 chercheurs clés engagés pour validation de la taxonomie</li>
+          <li><span class="rtag-apps">MVP KORA Apps</span> livré + stratégie de communication prête</li>
+        </ul>
+      </div>
+
+      <div class="roadmap-col">
+        <div class="roadmap-period fin-juin">Fin juin 2026</div>
+        <ul class="roadmap-items">
+          <li><span class="rtag">500 Edtech</span> ont run KORA</li>
+          <li><span class="rtag-apps">5–10 districts</span> engagés · <span class="rtag-apps">10K MRR</span> (KORA Apps)</li>
+          <li><span class="rtag">5 publications</span> Grand Média — WaPo · Guardian · TechCrunch · Axios</li>
+        </ul>
+      </div>
+
+      <div class="roadmap-col">
+        <div class="roadmap-period fin-2026">Fin 2026</div>
+        <ul class="roadmap-items">
+          <li><span class="rtag">15 publications</span> Grand Média — campagne PR professionnelle</li>
+          <li><span class="rtag">Taxonomie co-signée</span> par 50+ institutions · 1er article peer-reviewed</li>
+          <li><span class="rtag">Victoire politique</span> — data sharing AI Labs · France · UK · US</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <p class="footer">Source : KORA_Strategic_Contacts_060326_EN.xlsx &nbsp;·&nbsp; 197 contacts &nbsp;·&nbsp; 161 institutions distinctes &nbsp;·&nbsp; 14 pays · 5 continents &nbsp;·&nbsp; Mise à jour : 11/03/2026</p>
 </div>
 
 <script>
