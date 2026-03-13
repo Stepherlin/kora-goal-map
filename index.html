@@ -32,22 +32,16 @@
 
   /* KPI Strip */
   .kpis {
-    display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px;
+    display: flex; flex-direction: column; gap: 10px;
     margin-bottom: 24px;
   }
-  .kpi {
-    border-radius: 12px; padding: 14px 16px;
-    border: 1px solid transparent;
-  }
-  .kpi-value { font-size: 26px; font-weight: 800; }
-  .kpi-label { font-size: 11px; font-weight: 600; color: #334155; margin-top: 2px; }
-  .kpi-featured {
-    border-radius: 14px; padding: 18px 20px;
-    border: 2px solid #7c3aed44;
-    box-shadow: 0 4px 16px rgba(124,58,237,0.15);
-  }
-  .kpi-featured .kpi-value { font-size: 38px; }
-  .kpi-featured .kpi-label { font-size: 12px; }
+  .kpi-row { display: flex; gap: 10px; }
+  .kpi-row-top .kpi { flex: 1; padding: 22px 28px; border-radius: 16px; border: 1px solid transparent; }
+  .kpi-row-bottom .kpi { flex: 1; padding: 14px 18px; border-radius: 12px; border: 1px solid transparent; }
+  .kpi-value-lg { font-size: 52px; font-weight: 900; line-height: 1; }
+  .kpi-value-sm { font-size: 28px; font-weight: 800; }
+  .kpi-label-lg { font-size: 13px; font-weight: 700; color: #334155; margin-top: 6px; letter-spacing: 0.2px; }
+  .kpi-label-sm { font-size: 11px; font-weight: 600; color: #334155; margin-top: 3px; }
   .kpi-sub { font-size: 10px; color: #64748b; margin-top: 3px; }
 
   /* Roadmap */
@@ -104,8 +98,7 @@
   .footer { text-align: center; font-size: 11px; color: #94a3b8; margin-top: 20px; }
 
   @media (max-width: 600px) {
-    .kpis { grid-template-columns: repeat(2, 1fr); }
-    .kpi-featured { transform: none; }
+    .kpi-row { flex-direction: column; }
     h1 { font-size: 20px; }
   }
 </style>
@@ -124,27 +117,31 @@
     <p class="subtitle">March 11, 2026</p>
   </div>
 
-  <!-- KPIs — 6-col grid: row1 = 2×(span3) featured, row2 = 3×(span2) -->
+  <!-- KPIs — row 1: EdTechs + AI Labs (big), row 2: Institutions + Govts + Media (small) -->
   <div class="kpis">
-    <div class="kpi kpi-featured" style="background:#ede9fe; grid-column:span 3;">
-      <div class="kpi-value" style="color:#7c3aed;">3</div>
-      <div class="kpi-label">EdTechs Ran KORA</div>
+    <div class="kpi-row kpi-row-top">
+      <div class="kpi" style="background:#ede9fe; border-color:#7c3aed33;">
+        <div class="kpi-value-lg" style="color:#7c3aed;">3</div>
+        <div class="kpi-label-lg">EdTechs Ran KORA</div>
+      </div>
+      <div class="kpi" style="background:#fef9c3; border-color:#ca890133;">
+        <div class="kpi-value-lg" style="color:#ca8901;">1</div>
+        <div class="kpi-label-lg">AI Labs Ran KORA</div>
+      </div>
     </div>
-    <div class="kpi kpi-featured" style="background:#fef9c3; border-color:#ca890122; box-shadow:0 4px 16px rgba(202,137,1,0.15); grid-column:span 3;">
-      <div class="kpi-value" style="color:#ca8901;">1</div>
-      <div class="kpi-label">AI Labs Ran KORA</div>
-    </div>
-    <div class="kpi" style="background:#e8eefa; border-color:#1e3a5f22; grid-column:span 2;">
-      <div class="kpi-value" style="color:#1e3a5f;">161</div>
-      <div class="kpi-label">Institutions Engaged</div>
-    </div>
-    <div class="kpi" style="background:#d1fae5; border-color:#05996922; grid-column:span 2;">
-      <div class="kpi-value" style="color:#059669;">5</div>
-      <div class="kpi-label">Governments Engaged</div>
-    </div>
-    <div class="kpi" style="background:#fff1f2; border-color:#e1193322; grid-column:span 2;">
-      <div class="kpi-value" style="color:#e11933;">0</div>
-      <div class="kpi-label">Major Media Publications</div>
+    <div class="kpi-row kpi-row-bottom">
+      <div class="kpi" style="background:#e8eefa; border-color:#1e3a5f22;">
+        <div class="kpi-value-sm" style="color:#1e3a5f;">161</div>
+        <div class="kpi-label-sm">Institutions Engaged</div>
+      </div>
+      <div class="kpi" style="background:#d1fae5; border-color:#05996922;">
+        <div class="kpi-value-sm" style="color:#059669;">5</div>
+        <div class="kpi-label-sm">Governments Engaged</div>
+      </div>
+      <div class="kpi" style="background:#fff1f2; border-color:#e1193322;">
+        <div class="kpi-value-sm" style="color:#e11933;">0</div>
+        <div class="kpi-label-sm">Major Media Publications</div>
+      </div>
     </div>
   </div>
 
