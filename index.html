@@ -12,7 +12,7 @@
     --paper:   #f7f4ef;
     --cream:   #ede9e1;
     --rule:    #c8c0b0;
-    --accent:  #c1440e;
+    --accent:  #F5B700;
     --muted:   #8b8070;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -221,7 +221,7 @@
     </svg>
     <div class="hd-logo-text">kora</div>
   </div>
-  <div class="hd-sub">Korabench · Ecosystem Map</div>
+  <div class="hd-sub">Penetration Map</div>
   <h1>Ecosystem <em>Penetration Map</em></h1>
   <div class="hd-meta">Last updated — March 11, 2026</div>
 </div>
@@ -336,10 +336,10 @@ function initChart() {
         {
           label: 'Active (117)',
           data: NEW_ACT,
-          borderColor: 'rgba(193,68,14,0.9)',
-          backgroundColor: 'rgba(193,68,14,0.1)',
+          borderColor: 'rgba(245,183,0,0.9)',
+          backgroundColor: 'rgba(245,183,0,0.12)',
           borderWidth: 2,
-          pointBackgroundColor: 'rgba(193,68,14,0.9)',
+          pointBackgroundColor: 'rgba(245,183,0,0.9)',
           pointRadius: 4,
           order: 1,
         },
@@ -386,7 +386,7 @@ function initChart() {
   const legend = document.getElementById('legend');
   legend.innerHTML = [
     { color: 'rgba(15,14,12,0.8)', label: 'Institutions (161)' },
-    { color: 'rgba(193,68,14,0.9)', label: 'Active (117)' },
+    { color: 'rgba(245,183,0,0.9)', label: 'Active (117)' },
   ].map(d =>
     `<div class="legend-item"><div class="legend-dot" style="background:${d.color};"></div>${d.label}</div>`
   ).join('');
