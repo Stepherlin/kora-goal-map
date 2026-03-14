@@ -31,29 +31,31 @@
     padding: 32px 48px 28px;
     position: relative;
     overflow: hidden;
+    text-align: center;
   }
-  .hd::after {
-    content: 'KORA';
-    position: absolute;
-    right: 40px; top: 50%;
-    transform: translateY(-50%);
-    font-family: 'DM Serif Display', serif;
-    font-size: 96px;
-    color: rgba(247,244,239,.04);
-    pointer-events: none;
-    letter-spacing: -4px;
+  .hd-logo {
+    display: flex; align-items: center; justify-content: center;
+    gap: 14px; margin-bottom: 16px;
+  }
+  .hd-logo svg { display: block; }
+  .hd-logo-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 28px; font-weight: 700;
+    color: var(--paper);
+    letter-spacing: -0.5px;
+    line-height: 1;
   }
   .hd-sub {
     font-family: 'DM Mono', monospace;
     font-size: 9px; letter-spacing: .15em;
     text-transform: uppercase;
     color: rgba(247,244,239,.4);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
   .hd h1 {
     font-family: 'DM Serif Display', serif;
-    font-size: 24px; font-weight: 400;
-    margin-bottom: 4px;
+    font-size: 22px; font-weight: 400;
+    margin-bottom: 6px;
   }
   .hd h1 em { color: var(--accent); font-style: italic; }
   .hd-meta {
@@ -198,7 +200,28 @@
 
 <!-- Header -->
 <div class="hd">
-  <div class="hd-sub">KORA · Korabench</div>
+  <!-- KORA logo: robot icon + wordmark -->
+  <div class="hd-logo">
+    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- antenna -->
+      <line x1="22" y1="3" x2="22" y2="8" stroke="rgba(247,244,239,0.9)" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="22" cy="2.5" r="2" fill="rgba(247,244,239,0.9)"/>
+      <!-- main face body -->
+      <rect x="7" y="9" width="30" height="26" rx="5" stroke="rgba(247,244,239,0.9)" stroke-width="2.2" fill="none"/>
+      <!-- left ear -->
+      <rect x="2" y="16" width="5" height="8" rx="2" stroke="rgba(247,244,239,0.9)" stroke-width="2" fill="none"/>
+      <!-- right ear -->
+      <rect x="37" y="16" width="5" height="8" rx="2" stroke="rgba(247,244,239,0.9)" stroke-width="2" fill="none"/>
+      <!-- left eye -->
+      <circle cx="16" cy="21" r="2.5" fill="rgba(247,244,239,0.9)"/>
+      <!-- right eye -->
+      <circle cx="28" cy="21" r="2.5" fill="rgba(247,244,239,0.9)"/>
+      <!-- mouth -->
+      <rect x="15" y="28" width="14" height="2.5" rx="1.2" fill="rgba(247,244,239,0.7)"/>
+    </svg>
+    <div class="hd-logo-text">kora</div>
+  </div>
+  <div class="hd-sub">Korabench · Ecosystem Map</div>
   <h1>Ecosystem <em>Penetration Map</em></h1>
   <div class="hd-meta">Last updated — March 11, 2026</div>
 </div>
