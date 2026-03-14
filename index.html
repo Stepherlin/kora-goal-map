@@ -6,146 +6,184 @@
 <title>KORA — Ecosystem Penetration Map</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Segoe UI', Inter, system-ui, sans-serif;
-    background: linear-gradient(135deg, #f0f4ff 0%, #fafbff 100%);
-    min-height: 100vh;
-    padding: 36px 24px 48px;
-    color: #1e3a5f;
-  }
-  .container { max-width: 1000px; margin: 0 auto; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Georgia, sans-serif;
+  background: #f4f6f9;
+  color: #1a1a1a;
+  min-height: 100vh;
+}
 
-  /* Header */
-  .header { text-align: center; margin-bottom: 28px; }
-  .eyebrow {
-    display: flex; align-items: center; justify-content: center; gap: 10px;
-    margin-bottom: 8px;
-  }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: #1e3a5f; }
-  .eyebrow-text {
-    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
-    color: #64748b; font-weight: 600;
-  }
-  h1 { font-size: 26px; font-weight: 800; color: #1e3a5f; letter-spacing: -0.5px; margin-bottom: 4px; }
-  .subtitle { font-size: 13px; color: #64748b; }
+/* ── Cover ───────────────────────────────────────────────── */
+.cover {
+  background: linear-gradient(135deg, #0d1b2a 0%, #1a3a5c 60%, #2d5986 100%);
+  color: white;
+  padding: 44px 60px 40px;
+}
+.cover-kicker {
+  font-size: 0.72rem; letter-spacing: 2.5px; text-transform: uppercase;
+  opacity: 0.55; margin-bottom: 12px; font-weight: 600;
+}
+.cover h1 {
+  font-size: 2rem; font-weight: 700; line-height: 1.2;
+  margin-bottom: 6px; letter-spacing: -0.3px;
+}
+.cover h1 em { font-style: normal; color: #7ecbff; }
+.cover-meta {
+  font-size: 0.78rem; opacity: 0.45; margin-top: 10px; letter-spacing: 0.5px;
+}
 
-  /* KPI Strip */
-  .kpis {
-    display: flex; flex-direction: column; gap: 10px;
-    margin-bottom: 24px;
-  }
-  .kpi-row { display: flex; gap: 10px; }
-  .kpi-row-top .kpi { flex: 1; padding: 22px 28px; border-radius: 16px; border: 1px solid transparent; }
-  .kpi-row-bottom .kpi { flex: 1; padding: 14px 18px; border-radius: 12px; border: 1px solid transparent; }
-  .kpi-value-lg { font-size: 52px; font-weight: 900; line-height: 1; }
-  .kpi-value-sm { font-size: 28px; font-weight: 800; }
-  .kpi-label-lg { font-size: 13px; font-weight: 700; color: #334155; margin-top: 6px; letter-spacing: 0.2px; }
-  .kpi-label-sm { font-size: 11px; font-weight: 600; color: #334155; margin-top: 3px; }
-  .kpi-sub { font-size: 10px; color: #64748b; margin-top: 3px; }
+/* ── Page ────────────────────────────────────────────────── */
+.page { max-width: 980px; margin: 0 auto; padding: 40px 40px 60px; }
 
-  /* Roadmap */
-  .roadmap-card {
-    background: #fff; border-radius: 20px; padding: 24px 24px 20px;
-    box-shadow: 0 4px 24px rgba(30,58,95,0.08); border: 1px solid #e8eefa;
-    margin-bottom: 24px;
-  }
-  .roadmap-header { text-align: center; margin-bottom: 20px; }
-  .roadmap-title {
-    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
-    color: #64748b; font-weight: 600;
-  }
-  .roadmap-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
-  }
-  .roadmap-col {
-    background: #f8faff; border-radius: 12px; padding: 16px 14px;
-    border: 1px solid #e8eefa;
-  }
-  .roadmap-period {
-    font-size: 11px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1px; padding: 4px 10px; border-radius: 20px;
-    display: inline-block; margin-bottom: 14px;
-  }
-  .fin-mars  { background: #fff7ed; color: #c2410c; }
-  .fin-juin  { background: #eff6ff; color: #1d4ed8; }
-  .fin-2026  { background: #f0fdf4; color: #15803d; }
-  .roadmap-items { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-  .roadmap-items li { font-size: 12px; color: #475569; line-height: 1.5; }
-  .rtag { font-weight: 700; color: #1e3a5f; }
-  .rtag-apps { font-weight: 700; color: #7c3aed; }
+/* ── KPI Section ─────────────────────────────────────────── */
+.kpi-section { margin-bottom: 36px; }
 
-  @media (max-width: 600px) {
-    .roadmap-grid { grid-template-columns: 1fr; }
-  }
+.kpi-row-top {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+  margin-bottom: 14px;
+}
+.kpi-row-bottom {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px;
+}
 
-  /* Chart Card */
-  .chart-card {
-    background: #fff; border-radius: 20px; padding: 28px 20px 20px;
-    box-shadow: 0 4px 24px rgba(30,58,95,0.08); border: 1px solid #e8eefa;
-    margin-bottom: 24px;
-  }
-  .chart-wrap { position: relative; height: 460px; }
+.kpi-card {
+  background: white; border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  padding: 24px 28px;
+}
+.kpi-card-featured {
+  background: white; border-radius: 8px;
+  padding: 28px 32px;
+  border-top: 3px solid;
+  border-left: 1px solid #e2e8f0;
+  border-right: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+}
+.kpi-card-featured.edtech { border-top-color: #1a3a5c; }
+.kpi-card-featured.ailabs { border-top-color: #2d5986; }
 
-  /* Legend */
-  .legend {
-    display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
-    margin-top: 16px; font-size: 12px;
-  }
-  .legend-item { display: flex; align-items: center; gap: 6px; }
-  .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.kpi-num {
+  font-size: 3.2rem; font-weight: 800; line-height: 1;
+  letter-spacing: -2px; margin-bottom: 6px;
+}
+.kpi-card-featured .kpi-num { font-size: 4rem; }
+.kpi-label {
+  font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.5px; color: #64748b;
+}
 
-  .footer { text-align: center; font-size: 11px; color: #94a3b8; margin-top: 20px; }
+/* ── Section title ───────────────────────────────────────── */
+h2.section-title {
+  font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 2px; color: #94a3b8;
+  margin-bottom: 16px; padding-bottom: 10px;
+  border-bottom: 1px solid #e2e8f0;
+}
 
-  @media (max-width: 600px) {
-    .kpi-row { flex-direction: column; }
-    h1 { font-size: 20px; }
-  }
+/* ── Chart Card ──────────────────────────────────────────── */
+.chart-card {
+  background: white; border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  padding: 32px 28px 24px;
+  margin-bottom: 36px;
+}
+.chart-wrap { position: relative; height: 460px; }
+.legend {
+  display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;
+  margin-top: 20px;
+}
+.legend-item { display: flex; align-items: center; gap: 7px; font-size: 0.78rem; color: #64748b; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── Roadmap ─────────────────────────────────────────────── */
+.roadmap-card {
+  background: white; border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  padding: 28px;
+  margin-bottom: 36px;
+}
+.roadmap-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+}
+.roadmap-col { padding: 0; }
+.roadmap-period {
+  font-size: 0.68rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 1.5px; padding: 5px 10px; border-radius: 4px;
+  display: inline-block; margin-bottom: 16px;
+}
+.fin-mars  { background: #fff1f0; color: #b91c1c; }
+.fin-juin  { background: #eff6ff; color: #1d4ed8; }
+.fin-2026  { background: #f0fdf4; color: #15803d; }
+.roadmap-items { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.roadmap-items li {
+  font-size: 0.8rem; color: #475569; line-height: 1.55;
+  padding-left: 12px; position: relative;
+}
+.roadmap-items li::before {
+  content: ''; position: absolute; left: 0; top: 7px;
+  width: 4px; height: 4px; border-radius: 50%; background: #cbd5e1;
+}
+.rtag { font-weight: 700; color: #0d1b2a; }
+
+/* ── Footer ──────────────────────────────────────────────── */
+.footer {
+  text-align: center; font-size: 0.72rem; color: #94a3b8;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 640px) {
+  .cover { padding: 32px 24px; }
+  .page { padding: 24px 20px 40px; }
+  .kpi-row-top, .kpi-row-bottom { grid-template-columns: 1fr; }
+  .roadmap-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
-<div class="container">
 
-  <!-- Header -->
-  <div class="header">
-    <div class="eyebrow">
-      <div class="dot"></div>
-      <span class="eyebrow-text">KORA</span>
-      <div class="dot"></div>
-    </div>
-    <h1>Ecosystem Penetration Map</h1>
-    <p class="subtitle">March 11, 2026</p>
-  </div>
+<!-- Cover -->
+<div class="cover">
+  <div class="cover-kicker">KORA · Korabench</div>
+  <h1>Ecosystem <em>Penetration Map</em></h1>
+  <div class="cover-meta">Last updated: March 11, 2026</div>
+</div>
 
-  <!-- KPIs — row 1: EdTechs + AI Labs (big), row 2: Institutions + Govts + Media (small) -->
-  <div class="kpis">
-    <div class="kpi-row kpi-row-top">
-      <div class="kpi" style="background:#ede9fe; border-color:#7c3aed33;">
-        <div class="kpi-value-lg" style="color:#7c3aed;">3</div>
-        <div class="kpi-label-lg">EdTech Users</div>
+<div class="page">
+
+  <!-- KPIs -->
+  <div class="kpi-section">
+
+    <div class="kpi-row-top">
+      <div class="kpi-card-featured edtech">
+        <div class="kpi-num" style="color:#0d1b2a;">3</div>
+        <div class="kpi-label">EdTech Users</div>
       </div>
-      <div class="kpi" style="background:#fef9c3; border-color:#ca890133;">
-        <div class="kpi-value-lg" style="color:#ca8901;">1</div>
-        <div class="kpi-label-lg">AI Labs Users</div>
-      </div>
-    </div>
-    <div class="kpi-row kpi-row-bottom">
-      <div class="kpi" style="background:#e8eefa; border-color:#1e3a5f22;">
-        <div class="kpi-value-sm" style="color:#1e3a5f;">161</div>
-        <div class="kpi-label-sm">Institutions Engaged</div>
-      </div>
-      <div class="kpi" style="background:#d1fae5; border-color:#05996922;">
-        <div class="kpi-value-sm" style="color:#059669;">5</div>
-        <div class="kpi-label-sm">Governments Engaged</div>
-      </div>
-      <div class="kpi" style="background:#fff1f2; border-color:#e1193322;">
-        <div class="kpi-value-sm" style="color:#e11933;">0</div>
-        <div class="kpi-label-sm">Major Media Publications</div>
+      <div class="kpi-card-featured ailabs">
+        <div class="kpi-num" style="color:#2d5986;">1</div>
+        <div class="kpi-label">AI Labs Users</div>
       </div>
     </div>
+
+    <div class="kpi-row-bottom">
+      <div class="kpi-card">
+        <div class="kpi-num" style="color:#1e3a5f; font-size:2.2rem;">161</div>
+        <div class="kpi-label">Institutions Engaged</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num" style="color:#059669; font-size:2.2rem;">5</div>
+        <div class="kpi-label">Governments Engaged</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num" style="color:#b91c1c; font-size:2.2rem;">0</div>
+        <div class="kpi-label">Major Media Publications</div>
+      </div>
+    </div>
+
   </div>
 
   <!-- Chart -->
+  <h2 class="section-title">Coverage by Sector</h2>
   <div class="chart-card">
     <div class="chart-wrap">
       <canvas id="radarChart"></canvas>
@@ -154,10 +192,8 @@
   </div>
 
   <!-- Roadmap -->
+  <h2 class="section-title">2026 Strategic Milestones</h2>
   <div class="roadmap-card">
-    <div class="roadmap-header">
-      <span class="roadmap-title">2026 Strategic Milestones</span>
-    </div>
     <div class="roadmap-grid">
 
       <div class="roadmap-col">
@@ -194,6 +230,7 @@
   </div>
 
   <p class="footer">Last updated: March 11, 2026</p>
+
 </div>
 
 <script>
@@ -203,20 +240,18 @@ const SECTORS = [
   'Research/Academia', 'Media', 'Others'
 ];
 
-// Distinct institutions by sector — 03/09/2026
 const NEW_ALL = [5, 17, 2, 0, 14,  6, 29, 38, 15, 35];
 const NEW_ACT = [5, 11, 1, 0,  7,  5, 24, 31, 12, 21];
 
 const C = {
-  navy:     'rgba(30,58,95,1)',
-  navyFill: 'rgba(30,58,95,0.2)',
-  blue:     'rgba(37,99,235,1)',
-  blueFill: 'rgba(37,99,235,0.25)',
+  navy:     'rgba(13,27,42,1)',
+  navyFill: 'rgba(13,27,42,0.15)',
+  blue:     'rgba(45,89,134,1)',
+  blueFill: 'rgba(45,89,134,0.2)',
 };
 
 function initChart() {
   const ctx = document.getElementById('radarChart').getContext('2d');
-
   new Chart(ctx, {
     type: 'radar',
     data: {
@@ -250,30 +285,22 @@ function initChart() {
       animation: { duration: 600 },
       scales: {
         r: {
-          min: 0,
-          max: 50,
+          min: 0, max: 50,
           ticks: {
-            stepSize: 10,
-            color: '#94a3b8',
-            font: { size: 10 },
-            backdropColor: 'transparent',
+            stepSize: 10, color: '#94a3b8',
+            font: { size: 10 }, backdropColor: 'transparent',
           },
           grid: { color: '#e2e8f0' },
           angleLines: { color: '#e2e8f0' },
-          pointLabels: {
-            color: '#334155',
-            font: { size: 12, weight: '600' },
-          },
+          pointLabels: { color: '#334155', font: { size: 12, weight: '600' } },
         },
       },
       plugins: {
         legend: { display: false },
         tooltip: {
-          callbacks: {
-            label: ctx => ` ${ctx.dataset.label}: ${ctx.raw}`,
-          },
+          callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.raw}` },
           backgroundColor: '#fff',
-          titleColor: '#1e3a5f',
+          titleColor: '#0d1b2a',
           bodyColor: '#475569',
           borderColor: '#e2e8f0',
           borderWidth: 1,
@@ -284,13 +311,12 @@ function initChart() {
     },
   });
 
-  // Legend
   const legend = document.getElementById('legend');
   legend.innerHTML = [
     { color: C.navy, label: 'Institutions (161)' },
     { color: C.blue, label: 'Active Institutions (117)' },
   ].map(item =>
-    `<div class="legend-item"><div class="legend-dot" style="background:${item.color};"></div><span style="color:#475569;">${item.label}</span></div>`
+    `<div class="legend-item"><div class="legend-dot" style="background:${item.color};"></div><span>${item.label}</span></div>`
   ).join('');
 }
 
