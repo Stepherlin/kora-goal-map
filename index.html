@@ -228,7 +228,7 @@
   <!-- KPIs — row 1: EdTech + AI Labs (featured) -->
   <div class="kpi-row-top">
     <div class="kpi-card-featured">
-      <div class="kpi-num-lg">1</div>
+      <div class="kpi-num-lg">3</div>
       <div class="kpi-label">EdTech Users</div>
     </div>
     <div class="kpi-card-featured accent-top">
@@ -241,7 +241,7 @@
   <div class="kpi-row-bottom">
     <div class="kpi-card">
       <div class="kpi-num-sm">197</div>
-      <div class="kpi-label">Institutions Engaged</div>
+      <div class="kpi-label">Contacts Engaged</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-num-sm">5</div>
@@ -300,7 +300,7 @@
     </div>
   </div>
 
-  <p class="footer">Last updated — March 14, 2026 · Source: KORA_Strategic_Contacts_060326_EN.xlsx · 197 contacts</p>
+  <p class="footer">Last updated — March 14, 2026</p>
 
 </div>
 
@@ -322,7 +322,7 @@ function initChart() {
       labels: SECTORS,
       datasets: [
         {
-          label: 'Institutions (197)',
+          label: 'Contacts (197)',
           data: NEW_ALL,
           borderColor: 'rgba(15,14,12,0.8)',
           backgroundColor: 'rgba(15,14,12,0.08)',
@@ -383,7 +383,7 @@ function initChart() {
 
   const legend = document.getElementById('legend');
   legend.innerHTML = [
-    { color: 'rgba(15,14,12,0.8)', label: 'Institutions (197)' },
+    { color: 'rgba(15,14,12,0.8)', label: 'Contacts (197)' },
     { color: 'rgba(245,183,0,0.9)', label: 'Active (143)' },
   ].map(d =>
     `<div class="legend-item"><div class="legend-dot" style="background:${d.color};"></div>${d.label}</div>`
