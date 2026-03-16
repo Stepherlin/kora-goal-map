@@ -7,197 +7,198 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-:root {
-  --ink:     #0f0e0c;
-  --paper:   #f7f4ef;
-  --cream:   #ede9e1;
-  --rule:    #c8c0b0;
-  --accent:  #F5B700;
-  --muted:   #8b8070;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--paper);
-  color: var(--ink);
-  font-size: 13px;
-  line-height: 1.5;
-}
+  :root {
+    --ink:     #0f0e0c;
+    --paper:   #f7f4ef;
+    --cream:   #ede9e1;
+    --rule:    #c8c0b0;
+    --accent:  #F5B700;
+    --muted:   #8b8070;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 13px;
+    line-height: 1.5;
+  }
 
-/* HEADER */
-.hd {
-  background: var(--ink);
-  color: var(--paper);
-  padding: 32px 48px 28px;
-  position: relative;
-  overflow: hidden;
-  text-align: center;
-}
-.hd-logo {
-  display: flex; align-items: center; justify-content: center;
-  gap: 14px; margin-bottom: 16px;
-}
-.hd-logo svg { display: block; }
-.hd-logo-text {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 28px; font-weight: 700;
-  color: var(--paper);
-  letter-spacing: -0.5px;
-  line-height: 1;
-}
-.hd-sub {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px; letter-spacing: .15em;
-  text-transform: uppercase;
-  color: rgba(247,244,239,.4);
-  margin-bottom: 8px;
-}
-.hd h1 {
-  font-family: 'DM Serif Display', serif;
-  font-size: 52px; font-weight: 400; line-height: 1.1;
-  margin-bottom: 6px;
-}
-.hd h1 em { color: var(--accent); font-style: italic; }
-.hd-meta {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px; font-weight: 300;
-  letter-spacing: .1em;
-  color: rgba(247,244,239,.45);
-  text-transform: uppercase;
-}
+  /* ── HEADER ─────────────────────────────────────────────── */
+  .hd {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 32px 48px 28px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .hd-logo {
+    display: flex; align-items: center; justify-content: center;
+    gap: 14px; margin-bottom: 16px;
+  }
+  .hd-logo svg { display: block; }
+  .hd-logo-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 28px; font-weight: 700;
+    color: var(--paper);
+    letter-spacing: -0.5px;
+    line-height: 1;
+  }
+  .hd-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: .15em;
+    text-transform: uppercase;
+    color: rgba(247,244,239,.4);
+    margin-bottom: 8px;
+  }
+  .hd h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 52px; font-weight: 400; line-height: 1.1;
+    margin-bottom: 6px;
+  }
+  .hd h1 em { color: var(--accent); font-style: italic; }
+  .hd-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; font-weight: 300;
+    letter-spacing: .1em;
+    color: rgba(247,244,239,.45);
+    text-transform: uppercase;
+  }
 
-/* PAGE */
-.page { max-width: 980px; margin: 0 auto; padding: 36px 40px 56px; }
+  /* ── PAGE ────────────────────────────────────────────────── */
+  .page { max-width: 980px; margin: 0 auto; padding: 36px 40px 56px; }
 
-/* KPI STRIP */
-.kpi-row-top {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
-  margin-bottom: 12px;
-}
-.kpi-row-bottom {
-  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;
-  margin-bottom: 36px;
-}
-.kpi-card {
-  background: white;
-  border: 1px solid var(--rule);
-  border-radius: 4px;
-  padding: 20px 24px;
-}
-.kpi-card-featured {
-  background: white;
-  border: 1px solid var(--rule);
-  border-top: 3px solid var(--ink);
-  border-radius: 4px;
-  padding: 24px 28px;
-}
-.kpi-card-featured.accent-top { border-top-color: var(--accent); }
-.kpi-num-lg {
-  font-family: 'DM Serif Display', serif;
-  font-size: 52px; line-height: 1;
-  color: var(--ink);
-  margin-bottom: 6px;
-  letter-spacing: -2px;
-}
-.kpi-num-lg.accent { color: var(--accent); }
-.kpi-num-sm {
-  font-family: 'DM Serif Display', serif;
-  font-size: 30px; line-height: 1;
-  color: var(--ink);
-  margin-bottom: 4px;
-}
-.kpi-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px; letter-spacing: .13em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
+  /* ── KPI STRIP ───────────────────────────────────────────── */
+  .kpi-row-top {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    margin-bottom: 12px;
+  }
+  .kpi-row-bottom {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;
+    margin-bottom: 36px;
+  }
+  .kpi-card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 20px 24px;
+  }
+  .kpi-card-featured {
+    background: white;
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--ink);
+    border-radius: 4px;
+    padding: 24px 28px;
+  }
+  .kpi-card-featured.accent-top { border-top-color: var(--accent); }
+  .kpi-num-lg {
+    font-family: 'DM Serif Display', serif;
+    font-size: 52px; line-height: 1;
+    color: var(--ink);
+    margin-bottom: 6px;
+    letter-spacing: -2px;
+  }
+  .kpi-num-lg.accent { color: var(--accent); }
+  .kpi-num-sm {
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px; line-height: 1;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .kpi-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
 
-/* SECTION TITLE */
-.section-title {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px; font-weight: 700;
-  color: var(--ink);
-  margin-bottom: 16px;
-  display: block;
-}
+  /* ── SECTION TITLE ───────────────────────────────────────── */
+  .section-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 16px;
+    display: block;
+  }
 
-/* CHART CARD */
-.chart-card {
-  background: white;
-  border: 1px solid var(--rule);
-  border-radius: 4px;
-  padding: 28px 24px 20px;
-  margin-bottom: 36px;
-}
-.chart-wrap { position: relative; height: 460px; }
-.legend {
-  display: flex; justify-content: center; gap: 24px;
-  flex-wrap: wrap; margin-top: 20px;
-}
-.legend-item {
-  display: flex; align-items: center; gap: 7px;
-  font-family: 'DM Mono', monospace;
-  font-size: 10px; color: var(--muted);
-}
-.legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  /* ── CHART CARD ──────────────────────────────────────────── */
+  .chart-card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 28px 24px 20px;
+    margin-bottom: 36px;
+  }
+  .chart-wrap { position: relative; height: 460px; }
+  .legend {
+    display: flex; justify-content: center; gap: 24px;
+    flex-wrap: wrap; margin-top: 20px;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 7px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; color: var(--muted);
+  }
+  .legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
 
-/* ROADMAP */
-.roadmap-card {
-  background: white;
-  border: 1px solid var(--rule);
-  border-radius: 4px;
-  padding: 24px;
-  margin-bottom: 36px;
-}
-.roadmap-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
-}
-.roadmap-period {
-  font-family: 'DM Mono', monospace;
-  font-size: 8.5px; font-weight: 500;
-  letter-spacing: .13em; text-transform: uppercase;
-  padding: 3px 9px; border-radius: 2px;
-  display: inline-block; margin-bottom: 14px;
-}
-.p-mars  { background: rgba(245,183,0,0.15); color: #8a6800; }
-.p-juin  { background: rgba(245,183,0,0.25); color: #7a5c00; }
-.p-2026  { background: rgba(245,183,0,0.38); color: #6a4e00; }
-.roadmap-items { list-style: none; display: flex; flex-direction: column; gap: 9px; }
-.roadmap-items li {
-  font-size: 12px; color: #555;
-  line-height: 1.5;
-  padding-left: 13px; position: relative;
-}
-.roadmap-items li::before {
-  content: ''; position: absolute; left: 0; top: 7px;
-  width: 4px; height: 4px; border-radius: 50%;
-  background: var(--rule);
-}
-.rtag { font-weight: 600; color: var(--ink); }
-.rmuted { color: var(--muted); font-style: italic; }
+  /* ── ROADMAP ─────────────────────────────────────────────── */
+  .roadmap-card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 24px;
+    margin-bottom: 36px;
+  }
+  .roadmap-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  .roadmap-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 8.5px; font-weight: 500;
+    letter-spacing: .13em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 2px;
+    display: inline-block; margin-bottom: 14px;
+  }
+  .p-mars  { background: rgba(245,183,0,0.15); color: #8a6800; }
+  .p-juin  { background: rgba(245,183,0,0.25); color: #7a5c00; }
+  .p-2026  { background: rgba(245,183,0,0.38); color: #6a4e00; }
+  .roadmap-items { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .roadmap-items li {
+    font-size: 12px; color: #555;
+    line-height: 1.5;
+    padding-left: 13px; position: relative;
+  }
+  .roadmap-items li::before {
+    content: ''; position: absolute; left: 0; top: 7px;
+    width: 4px; height: 4px; border-radius: 50%;
+    background: var(--rule);
+  }
+  .rtag { font-weight: 600; color: var(--ink); }
+  .rmuted { color: var(--muted); font-style: italic; }
 
-/* FOOTER */
-.footer {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px; letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--rule);
-  text-align: center;
-}
+  /* ── FOOTER ──────────────────────────────────────────────── */
+  .footer {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--rule);
+    text-align: center;
+  }
 
-@media (max-width: 640px) {
-  .page { padding: 20px 16px 40px; }
-  .kpi-row-top, .kpi-row-bottom { grid-template-columns: 1fr; }
-  .roadmap-grid { grid-template-columns: 1fr; }
-  .hd { padding: 24px; }
-}
+  @media (max-width: 640px) {
+    .page { padding: 20px 16px 40px; }
+    .kpi-row-top, .kpi-row-bottom { grid-template-columns: 1fr; }
+    .roadmap-grid { grid-template-columns: 1fr; }
+    .hd { padding: 24px; }
+  }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- Header -->
 <div class="hd">
+  <!-- KORA logo: robot icon + wordmark -->
   <div class="hd-logo">
     <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- antenna -->
@@ -219,16 +220,15 @@ body {
     <div class="hd-logo-text">kora</div>
   </div>
   <h1>Goal <em>Map</em></h1>
-  <div class="hd-meta">Last updated — March 16, 2026</div>
+  <div class="hd-meta">Last updated — March 14, 2026</div>
 </div>
 
-<!-- PAGE BODY -->
 <div class="page">
 
   <!-- KPIs — row 1: EdTech + AI Labs (featured) -->
   <div class="kpi-row-top">
     <div class="kpi-card-featured">
-      <div class="kpi-num-lg">5</div>
+      <div class="kpi-num-lg">3</div>
       <div class="kpi-label">EdTech Users</div>
     </div>
     <div class="kpi-card-featured accent-top">
@@ -240,7 +240,7 @@ body {
   <!-- KPIs — row 2: secondary metrics -->
   <div class="kpi-row-bottom">
     <div class="kpi-card">
-      <div class="kpi-num-sm">210</div>
+      <div class="kpi-num-sm">197</div>
       <div class="kpi-label">Contacts Engaged</div>
     </div>
     <div class="kpi-card">
@@ -253,7 +253,7 @@ body {
     </div>
   </div>
 
-  <!-- CHART -->
+  <!-- Chart -->
   <div class="section-title">Coverage by Sector</div>
   <div class="chart-card">
     <div class="chart-wrap">
@@ -262,7 +262,7 @@ body {
     <div class="legend" id="legend"></div>
   </div>
 
-  <!-- ROADMAP -->
+  <!-- Roadmap -->
   <div class="section-title">2026 Strategic Milestones</div>
   <div class="roadmap-card">
     <div class="roadmap-grid">
@@ -270,20 +270,21 @@ body {
       <div>
         <div class="roadmap-period p-mars">End of March 2026</div>
         <ul class="roadmap-items">
-          <li><span class="rtag">KORA evaluated 10–50 EdTechs</span> with MVP</li>
-          <li><span class="rtag">Taxonomy</span> collectively validated by Stanford</li>
-          <li><span class="rtag">Parents review</span> of LLM as a judge</li>
-          <li><span class="rtag">Insight &amp; KORA feedback</span> blog posts</li>
+          <li><span class="rtag">KORA Apps V1</span> shipped</li>
+          <li><span class="rtag">Taxonomy v2</span> live</li>
+          <li><span class="rtag">Insights page</span> live</li>
+          <li><span class="rtag">KORA Bench V1</span> · 1 arXiv article &amp; research program launched</li>
         </ul>
       </div>
 
       <div>
         <div class="roadmap-period p-juin">End of June 2026</div>
         <ul class="roadmap-items">
-          <li><span class="rtag">KORA evaluated 500 EdTechs</span></li>
-          <li><span class="rtag">1 arXiv article</span> &amp; research program · <span class="rtag">3 major media</span> publications</li>
-          <li><span class="rtag">KORA V2</span> shipped</li>
-          <li><span class="rtag">KORA run pre-launch</span> by <span class="rtag">&gt;2 AI Labs</span></li>
+          <li><span class="rtag">KORA Apps V2</span> shipped</li>
+          <li><span class="rtag">X? major media</span> publications</li>
+          <li><span class="rtag">KORA pre-launch</span> with 2+ AI Labs</li>
+          <li><span class="rtag">3 tier-1 partnerships</span> signed <span class="rmuted">(OpenAI, ClassDojo, UNICEF…)</span></li>
+          <li><span class="rtag">Fiscal model</span> secured</li>
         </ul>
       </div>
 
@@ -300,7 +301,7 @@ body {
     </div>
   </div>
 
-  <p class="footer">Last updated — March 16, 2026</p>
+  <p class="footer">Last updated — March 14, 2026</p>
 
 </div>
 
@@ -310,17 +311,9 @@ const SECTORS = [
   'Parents/Family', 'Regulators/Policy', 'Nonprofits/Advocacy',
   'Research/Academia', 'Media', 'Investors', 'Others'
 ];
-
-// Week 11 update — March 16, 2026
-// +3 EdTech (Natalie Gibson, Ben Gibson / HeyOtto! ; Brent Davidoff / GoFamily)
-// +4 Nonprofits/Advocacy (Laura Erickson-Schroth, Grant Bowen / JED ; Erika Anderson / HumaneBench ; Lisa LeVasseur / Internet Safety Labs)
-// +4 Research/Academia (Trond Ingebretsen, Ari Yacianci / EduEvidence ; Lara Rich / Stanford ; Krister Kruusmaa / EKI)
-// +2 Others (Zoe Zhou / Prolific ; Chaitanya Ravula / Independent)
-// Total: 197 → 210 contacts / 128 → 141 active
-
-const PREV    = [5,  17, 2, 0, 14,  6, 29, 38, 15,  0, 35];
-const NEW_ALL = [20, 21, 2, 0,  0, 13, 37, 52, 16, 13, 36];
-const NEW_ACT = [14, 16, 1, 0,  0, 11, 30, 38,  9,  5, 17];
+const PREV    = [5, 17, 2, 0, 14,  6, 29, 38, 15,  0, 35];
+const NEW_ALL = [20, 18, 2, 0,  0, 13, 33, 48, 16, 13, 34];
+const NEW_ACT = [14, 13, 1, 0,  0, 11, 26, 34,  9,  5, 15];
 
 function initChart() {
   const ctx = document.getElementById('radarChart').getContext('2d');
@@ -330,7 +323,7 @@ function initChart() {
       labels: SECTORS,
       datasets: [
         {
-          label: 'Contacts (210 total)',
+          label: 'Contacts (197 total)',
           data: NEW_ALL,
           borderColor: 'rgba(15,14,12,0.8)',
           backgroundColor: 'rgba(15,14,12,0.08)',
@@ -340,7 +333,7 @@ function initChart() {
           order: 2,
         },
         {
-          label: 'Active (141)',
+          label: 'Active (128)',
           data: NEW_ACT,
           borderColor: 'rgba(245,183,0,0.9)',
           backgroundColor: 'rgba(245,183,0,0.12)',
@@ -391,8 +384,8 @@ function initChart() {
 
   const legend = document.getElementById('legend');
   legend.innerHTML = [
-    { color: 'rgba(15,14,12,0.8)', label: 'Contacts (210 total)' },
-    { color: 'rgba(245,183,0,0.9)', label: 'Active (141)' },
+    { color: 'rgba(15,14,12,0.8)', label: 'Contacts (197 total)' },
+    { color: 'rgba(245,183,0,0.9)', label: 'Active (128)' },
   ].map(d =>
     `<div class="legend-item"><div class="legend-dot" style="background:${d.color};"></div>${d.label}</div>`
   ).join('');
