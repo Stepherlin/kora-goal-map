@@ -221,11 +221,11 @@
   <!-- KPIs — row 2: secondary metrics -->
   <div class="kpi-row-bottom">
     <div class="kpi-card">
-      <div class="kpi-num-sm">197</div>
+      <div class="kpi-num-sm">207</div>
       <div class="kpi-label">Contacts Engaged</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-num-sm">5</div>
+      <div class="kpi-num-sm">6</div>
       <div class="kpi-label">Governments Engaged</div>
     </div>
     <div class="kpi-card">
@@ -292,9 +292,9 @@ const SECTORS = [
   'Parents/Family', 'Regulators/Policy', 'Nonprofits/Advocacy',
   'Research/Academia', 'Media', 'Investors', 'Others'
 ];
-const PREV    = [20, 18, 2, 0,  0, 13, 33, 48, 16, 13, 34];
-const NEW_ALL = [17, 11, 2, 0,  0,  8, 36, 46, 13,  0, 64];
-const NEW_ACT = [11,  8, 1, 0,  0,  6, 25, 26,  4,  0, 24];
+const PREV    = [17, 11, 2, 0,  0,  8, 36, 46, 13,  0, 64];
+const NEW_ALL = [19, 23, 2, 0,  0, 14, 35, 53, 13, 11, 37];
+const NEW_ACT = [13, 19, 1, 0,  0, 13, 27, 39,  6,  4, 17];
 
 function initChart() {
   const ctx = document.getElementById('radarChart').getContext('2d');
@@ -304,7 +304,7 @@ function initChart() {
       labels: SECTORS,
       datasets: [
         {
-          label: 'Contacts (197 total)',
+          label: 'Contacts (207 total)',
           data: NEW_ALL,
           borderColor: 'rgba(15,14,12,0.8)',
           backgroundColor: 'rgba(15,14,12,0.08)',
@@ -314,7 +314,7 @@ function initChart() {
           order: 2,
         },
         {
-          label: 'Active (105)',
+          label: 'Active (139)',
           data: NEW_ACT,
           borderColor: 'rgba(245,183,0,0.9)',
           backgroundColor: 'rgba(245,183,0,0.12)',
@@ -365,8 +365,8 @@ function initChart() {
 
   const legend = document.getElementById('legend');
   legend.innerHTML = [
-    { color: 'rgba(15,14,12,0.8)', label: 'Contacts (197 total)' },
-    { color: 'rgba(245,183,0,0.9)', label: 'Active (105)' },
+    { color: 'rgba(15,14,12,0.8)', label: 'Contacts (207 total)' },
+    { color: 'rgba(245,183,0,0.9)', label: 'Active (139)' },
   ].map(d =>
     `<div class="legend-item"><div class="legend-dot" style="background:${d.color};"></div>${d.label}</div>`
   ).join('');
