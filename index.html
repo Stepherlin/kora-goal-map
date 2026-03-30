@@ -297,9 +297,9 @@ const SECTORS = [
   'Parents/Family', 'Regulators/Policy', 'Nonprofits/Advocacy',
   'Research/Academia', 'Media', 'Investors', 'Others'
 ];
-const PREV    = [19, 23, 2, 0, 0, 14, 35, 53, 13, 11, 37];
-const NEW_ALL = [17, 11, 2, 0, 0, 8, 36, 46, 13, 10, 54];
-const NEW_ACT = [11, 8, 1, 0, 0, 5, 25, 24, 4, 2, 20];
+const PREV    = [17, 11, 2, 0, 0, 8, 36, 46, 13, 10, 54];
+const NEW_ALL = [17, 10, 2, 0, 0, 7, 36, 44, 14, 10, 57];
+const NEW_ACT = [7, 5, 1, 0, 0, 1, 16, 13, 5, 2, 9];
 
 function initChart() {
   const ctx = document.getElementById('radarChart').getContext('2d');
@@ -319,7 +319,7 @@ function initChart() {
           order: 2,
         },
         {
-          label: 'Active (100)',
+          label: 'Active (59)',
           data: NEW_ACT,
           borderColor: 'rgba(245,183,0,0.9)',
           backgroundColor: 'rgba(245,183,0,0.12)',
@@ -371,7 +371,7 @@ function initChart() {
   const legend = document.getElementById('legend');
   legend.innerHTML = [
     { color: 'rgba(15,14,12,0.8)', label: 'Contacts (197 total)' },
-    { color: 'rgba(245,183,0,0.9)', label: 'Active (100)' },
+    { color: 'rgba(245,183,0,0.9)', label: 'Active (59)' },
   ].map(d =>
     `<div class="legend-item"><div class="legend-dot" style="background:${d.color};"></div>${d.label}</div>`
   ).join('');
